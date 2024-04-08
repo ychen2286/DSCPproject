@@ -1,0 +1,16 @@
+processData.sh:
+#!/bin/bash
+row = ${SLURM_ARRAY_TASK_ID}
+module load R/R-3.6.1
+df = read.csv("url.csv")
+wget df[row,1]
+Note: url.csv combine all downloaded url and key is “url”
+submit.sh:
+#!/bin/bash
+mkdir -p slurm_out
+jobId1=$(sbatch --array=1-18 \
+                --output="slurm_out/slurm-%A_%a.out" \
+                --error="slurm_out/slurm-%A_%a.err" \
+                processData.sh)
+jobId1=$(echo $jobId1 | sed 's/Submitted batch job //')
+
