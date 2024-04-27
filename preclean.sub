@@ -1,0 +1,19 @@
+universe = vanilla
+
+log = log/preclean_$(Cluster)_$(Process).log
+error = error/preclean_$(Cluster)_$(Process).err
+output = output/preclean_$(Cluster)_$(Process).out
+
+executable = ./preclean.sh
+arguments = "$(input_file)"
+
+should_transfer_files = YES
+when_to_transfer_output = ON_EXIT
+
+transfer_input_files = $(input_file)
+
+request_cpus = 1
+request_memory = 4GB
+request_disk = 4GB
+
+queue input_file from input_list.txt

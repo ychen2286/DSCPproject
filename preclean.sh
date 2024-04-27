@@ -1,6 +1,7 @@
 #!/bin/bash                                                                     
-input="testall.csv"
-output="cleaned.csv"
+input=$1
+pattern=$(echo "$input" | grep -o 'D[0-9]\+')
+output="${pattern}_cleaned.csv"
 
 awk 'BEGIN {FS=OFS=","}                                                         
 {                                                                               
