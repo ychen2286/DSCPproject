@@ -15,4 +15,4 @@ request_cpus = 1
 request_memory = 2GB
 request_disk = 4GB
 
-queue filename from splitnames.txt
+queue filename from yearname.txt

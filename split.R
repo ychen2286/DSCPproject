@@ -11,7 +11,6 @@ if(length(args) == 2){
   stop()
 }
 
-
 percentage <- function(df, tot_col) {
   cols <- grep("Bene_Race_.*_Cnt", names(df), value = TRUE)
   for (col in cols) {
@@ -22,17 +21,17 @@ percentage <- function(df, tot_col) {
 }
 
 data <- read_csv(input_file)
-pattern <- str_extract(input_file, "D\\d+")
-
 #data <- percentage(data, "Tot_Bene")
 
 grouped_data <- data %>%
   group_by(!!sym(group_by_var)) %>%
-  summarise(across(matches("^(Rndrng_NPI|Rndrng_Prvdr_State_Abrvtn|Tot_|Bene_)"), mean, na.rm = TRUE))
+  summarise(across(matches("^(Rndrng_NPI|Rndrng_Prvdr_State|Tot_|Bene_)"), mean, na.rm = TRUE))
 
 grouped_data %>%
   split(.[[group_by_var]]) %>%
   lapply(function(x) {
+    year <- str_extract(input_file, "^\\d{4}")
     group_name <- unique(x[[group_by_var]])
-    write_csv(x, sprintf("split_%s_%s.csv", pattern, group_name))
+    output_file <- paste0(year, "_", group_name, ".csv")
+    write_csv(x, file = output_file)
   })
