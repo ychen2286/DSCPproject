@@ -1,0 +1,23 @@
+library(dplyr)
+library(readr)
+library(stringr)
+
+input_file <- args[1]
+
+add_year_column <- function(data, filename) {
+  # Regex to extract the part like 'D13', then extract just the digits and convert to full year
+  year_code <- str_extract(filename, "D\\d{2}")
+  print(paste("Extracted year code:", year_code))   
+  year <- as.integer(sub("D", "", year_code)) + 2000  # Convert '13' to 2013
+  print(paste("Converted year:", year))   
+  data$Year <- year  # Add the year as a new column
+  return(data)
+}
+
+data <- read_csv(input_file)
+print(head(data))
+data <- add_year_column(data, input_file)
+
+output_file <- sub(".csv", "_with_year.csv", input_file)
+write_csv(data, output_file)
+print(paste("Data processed and saved to:", output_file))
