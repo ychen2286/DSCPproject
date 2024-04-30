@@ -1,7 +1,6 @@
 #!/bin/bash
 directory="."
 
-
 mkdir -p "$directory/temp"
 echo "Temporary directory created."
 
