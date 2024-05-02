@@ -60,6 +60,7 @@ cp $(pwd)/outputstates/combine_all_means_with_state.csv .
 
 mkdir -p results
 cp combine_all_means_with_state.csv combined_by_year.csv results/
+tar -cvf results.tar results/
 
 #rm -r 20*_*.csv
 #rm -r *_combined.csv
