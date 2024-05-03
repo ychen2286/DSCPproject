@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Define input and output directories
-input_dir="/home/wqian26/DSCPproject_git"
-output_dir="/home/wqian26/DSCPproject_git/outputyears"
+input_dir="$(pwd)"
+output_dir="$(pwd)/outputyears"
 final_output="${output_dir}/combined_by_year.csv"
 
 # Create output directory if it doesn't exist

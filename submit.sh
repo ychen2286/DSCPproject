@@ -4,7 +4,7 @@ mkdir -p log error output
 
 condor_submit getData.sub && echo "Data retrieval job submitted."
 
-sleep 180
+sleep 80
 while condor_q | grep -q "getData.sub"; do sleep 70; done
 echo "Data retrieval completed."
 
@@ -27,13 +27,13 @@ echo "Year filenames completed."
 
 sleep 30
 condor_submit yearmean.sub && echo "Year mean calculation job submitted."
-sleep 300
+sleep 200
 while condor_q | grep -q "yearmean.sub"; do sleep 100; done
 echo "Year mean calculation completed."
 
 chmod u+x combine_by_year.sh
 ./combine_by_year.sh &&
-sleep 30 
+sleep 20 
 echo "Yearly data combined."
 
 rm -r *_means.csv
@@ -56,11 +56,12 @@ chmod u+x statemeans.sh
 ./statemeans.sh && echo "State means calculation completed."
 
 
-cp $(pwd)/outputstates/combine_all_means_with_state.csv .
+#cp $(pwd)/outputstates/combine_all_means_with_state.csv .
+cp $(pwd)/outputyears/combined_by_year.csv .
 
 mkdir -p results
 cp combine_all_means_with_state.csv combined_by_year.csv results/
 tar -cvf results.tar results/
 
-#rm -r 20*_*.csv
-#rm -r *_combined.csv
+rm -r 20*_*.csv
+rm -r *_combined.csv
