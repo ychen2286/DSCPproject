@@ -13,7 +13,7 @@ chmod u+x splitnamestxt.sh
 
 condor_submit year.sub && echo "Year addition job submitted."
 
-sleep 180
+sleep 120
 while condor_q | grep -q "year.sub"; do sleep 120; done
 echo "Year addition completed."
 
